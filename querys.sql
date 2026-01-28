@@ -11,3 +11,10 @@ CREATE TABLE usuarios(
 );
 
 -- UPDATE usuarios set senha = md5(senha) where id in (1,2)
+
+CREATE TABLE tweets(
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    id_usuario INT NOT NULL,
+    tweet varchar(140) not null,
+    data DATETIME DEFAULT CURRENT_TIMESTAMP
+);
