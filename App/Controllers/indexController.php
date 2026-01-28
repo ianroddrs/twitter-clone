@@ -30,7 +30,7 @@ class IndexController extends Action{
 
         $usuario->nome = $_POST['nome'];
         $usuario->email = $_POST['email'];
-        $usuario->senha = $_POST['senha'];
+        $usuario->senha = md5($_POST['senha']);
 
         // sucesso
 

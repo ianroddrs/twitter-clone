@@ -9,3 +9,5 @@ CREATE TABLE usuarios(
     email VARCHAR(150) NOT NULL,
     senha VARCHAR(32) NOT NULL
 );
+
+-- UPDATE usuarios set senha = md5(senha) where id in (1,2)
