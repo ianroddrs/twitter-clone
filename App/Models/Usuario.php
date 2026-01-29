@@ -80,15 +80,42 @@ class Usuario extends Model{
 
     public function getALL(){
         $query = "
-            SELECT id, nome, email 
-            FROM usuarios WHERE nome LIKE ?
+            SELECT u.id, u.nome, u.email, (
+                SELECT COUNT(*)
+                FROM usuarios_seguidores AS us
+                WHERE us.id_usuario = :id_usuario AND us.id_usuario_seguindo = u.id
+            ) as seguindo_sn
+            FROM usuarios AS u WHERE nome LIKE :nome AND id != :id_usuario
         ";
 
         $stmt = $this->db->prepare($query);
-        $stmt->bindValue(1, '%'.$this->__get('nome').'%');
+        $stmt->bindValue(':nome', '%'.$this->__get('nome').'%');
+        $stmt->bindValue(':id_usuario', $this->__get('id'));
         $stmt->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function seguirUsuario($id_usuario_seguindo){
+        $query = "INSERT INTO usuarios_seguidores(id_usuario, id_usuario_seguindo) VALUES(?,?)";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(1, $this->__get('id'));
+        $stmt->bindValue(2, $id_usuario_seguindo);
+
+        $stmt->execute();
+        return true;
+    }
+    
+    public function DeixarSeguirUsuario($id_usuario_seguindo){
+        $query = "DELETE FROM usuarios_seguidores WHERE id_usuario = ? AND id_usuario_seguindo = ?";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindValue(1, $this->__get('id'));
+        $stmt->bindValue(2, $id_usuario_seguindo);
+
+        $stmt->execute();
+        return true;
     }
 
 }
