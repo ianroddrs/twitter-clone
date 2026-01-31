@@ -7,6 +7,12 @@ use MF\Init\Bootstrap;
 class Route extends Bootstrap{
 
     protected function initRoutes(){
+        $routes['not_found'] = array(
+            'route' => '/not_found',
+            'controller' => 'IndexController',
+            'action' => 'error404'
+        );
+
         $routes['home'] = array(
             'route' => '/',
             'controller' => 'IndexController',
