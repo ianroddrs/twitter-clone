@@ -97,6 +97,28 @@
 
 			<?php } ?>
 
+			<div class="row justify-content-center mt-3">
+				<nav aria-label="Page navigation example">
+					<ul class="pagination">
+						<li class="page-item <?= $this->view->pagina_atual == 1 ? 'disabled' : ''?>">
+							<a class="page-link" href="?pagina=<?= $this->view->pagina_atual-1 ?>" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+						</li>
+
+						<?php for($i = 1; $i <= $this->view->total_de_paginas; $i++){ ?>
+							<li class="page-item <?= $this->view->pagina_atual == $i ? 'active' : ''?>"><a class="page-link" href="?pagina=<?= $i ?>"><?= $i ?></a></li>
+						<?php } ?>
+						
+						<li class="page-item <?= $this->view->pagina_atual == $this->view->total_de_paginas ? 'disabled' : ''?>">
+							<a class="page-link" href="?pagina=<?= $this->view->pagina_atual+1 ?>" aria-label="Next">
+								<span aria-hidden="true">&raquo;</span>
+							</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+
 		</div>
 
 
